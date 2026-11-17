@@ -1,0 +1,28 @@
+# Backend ONLY (graph.py, agents/, backend_api.py) -- runs in its own
+# container (Dockerfile.backend). Does NOT need streamlit or requests:
+# those belong to the client (app.py), which now runs separately and
+# talks to this backend over HTTP instead of importing it directly.
+# Does NOT need chromadb/sqlalchemy/sqlglot either -- those are
+# mcp-server's job (requirements/mcp-server.txt); the backend only talks
+# to that container over MCP, via mcp_layer/mcp_client.py.
+
+python-dotenv==1.2.3
+langchain==1.4.0
+langchain-core==1.6.0
+langchain-groq==1.1.3
+langgraph==1.2.11
+langchain-huggingface==1.2.2
+mcp==1.29.1
+langfuse==4.14.5
+
+# graph.py's long-term memory Store does its own semantic search (over
+# past Q&A, completely separate from mcp-server's RAG corpus search) via
+# HuggingFaceEmbeddings above -- which itself requires sentence-transformers
+# to actually run the embedding model. Same package mcp-server installs,
+# for a different, unrelated purpose.
+sentence-transformers==6.0.0
+
+# FastAPI wrapper (backend_api.py). uvicorn/starlette/pydantic don't need
+# their own line -- they come in transitively via mcp's own
+# streamable-http transport dependencies.
+fastapi>=0.115

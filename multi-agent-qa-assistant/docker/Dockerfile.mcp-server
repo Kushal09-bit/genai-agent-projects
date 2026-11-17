@@ -1,0 +1,25 @@
+# Tool server ONLY -- owns the SQL database and the biomedical vector
+# store, exposed as MCP tools (used by the backend container) and as
+# plain REST endpoints under /tools/... (an additional access point).
+# See mcp_layer/mcp_server.py.
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY requirements/mcp-server.txt .
+RUN pip install --no-cache-dir -r mcp-server.txt
+
+RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
+RUN python -c "from sentence_transformers import CrossEncoder; CrossEncoder('cross-encoder/ms-marco-MiniLM-L-6-v2')"
+
+COPY mcp_layer/__init__.py mcp_layer/mcp_server.py ./mcp_layer/
+
+COPY sql_guardrails.py ./sql_guardrails.py
+COPY sql_db/__init__.py sql_db/metadata_extractor.py ./sql_db/
+COPY sql_db/data/chinook.sqlite ./sql_db/data/chinook.sqlite
+
+VOLUME ["/app/chroma_db"]
+
+EXPOSE 8000
+
+CMD ["python", "mcp_layer/mcp_server.py"]

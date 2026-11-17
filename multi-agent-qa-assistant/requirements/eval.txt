@@ -1,0 +1,9 @@
+# eval/eval_ragas.py ONLY -- extra deps on top of requirements/backend.txt.
+# eval_ragas.py imports graph.py directly (in-process, like the backend
+# used to work before this split), so it needs everything in
+# requirements/backend.txt PLUS these two:
+#
+#   pip install -r requirements/backend.txt -r requirements/eval.txt
+
+ragas==0.4.3
+datasets==5.0.1

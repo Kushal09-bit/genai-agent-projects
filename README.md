@@ -4,6 +4,7 @@ LLM agent projects I built during my GenAI engineer internship (2026). Mostly ag
 
 | Project | What it is | Stack |
 |---|---|---|
+| [multi-agent-qa-assistant](multi-agent-qa-assistant) | LangGraph supervisor routing questions to a SQL agent (Chinook DB), a RAG agent (PubMed papers), or both - with guardrails, short + long-term memory, MCP tools and Docker | LangGraph, MCP, ChromaDB, FastAPI, Streamlit, Ragas, Langfuse |
 | [agentic-rag-clinical-trials](agentic-rag-clinical-trials) | ReAct agent that answers questions across the AACT clinical trials DB (SQL) and biomedical papers (RAG), tools served over MCP, split into 3 docker services | LangGraph, MCP, ChromaDB, BM25 + dense hybrid retrieval, FastAPI, Streamlit, Ragas, Langfuse |
 | [biomedical-research-assistant](biomedical-research-assistant) | RAG chatbot over PubMed papers - OCR ingestion, cross-encoder reranking, citations, guardrails | LangGraph, MCP, ChromaDB, Groq, Streamlit, Ragas, Docker |
 | [text-to-sql-chatbot](text-to-sql-chatbot) | Text-to-SQL chatbot on the Chinook music DB, single tool-calling agent with memory | LangChain, LangGraph, Groq, PostgreSQL, Ragas, Langfuse |

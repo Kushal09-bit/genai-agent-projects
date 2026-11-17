@@ -1,0 +1,19 @@
+# MCP server ONLY (mcp_layer/mcp_server.py) -- runs in its own container.
+# Does NOT need streamlit/langgraph/langchain-groq/etc: those belong to
+# the client (app.py + graph.py + agents/), which now runs separately and
+# talks to this server over the network instead of importing it directly.
+
+mcp==1.29.1
+python-dotenv==1.2.3
+chromadb==1.5.9
+sentence-transformers==6.0.0
+sqlalchemy==2.0.52
+sqlglot==30.17.0
+
+# FastAPI wrapper (see bottom of mcp_server.py): exposes the same three
+# tools as plain REST endpoints alongside the MCP endpoint, on the same
+# port. uvicorn/starlette/pydantic don't need their own line -- they come
+# in transitively via mcp's own streamable-http transport dependencies.
+# Left unpinned (unlike everything else here) since only a recent-enough
+# minimum matters -- lifespan context managers + Pydantic v2 support.
+fastapi>=0.115

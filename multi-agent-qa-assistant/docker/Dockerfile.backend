@@ -1,0 +1,24 @@
+# Backend ONLY -- the LangGraph multi-agent orchestration (graph.py,
+# agents/, guardrails.py, supervisor.py, memory.py, aggregator.py) plus a
+# FastAPI wrapper (backend_api.py) around it. Dockerized as its own
+# service so it's not tangled with the mcp-server (which owns the SQL/RAG
+# tools) or the Streamlit client (which stays local -- see app.py).
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY requirements/backend.txt .
+RUN pip install --no-cache-dir -r backend.txt
+
+# Pre-download the embedding model graph.py uses for long-term memory
+# semantic search, so it's baked into the image instead of fetched on
+# the first request.
+RUN python -c "from langchain_huggingface import HuggingFaceEmbeddings; HuggingFaceEmbeddings(model_name='sentence-transformers/all-MiniLM-L6-v2')"
+
+COPY state.py guardrails.py supervisor.py memory.py aggregator.py graph.py tracing.py backend_api.py ./
+COPY agents/ ./agents/
+COPY mcp_layer/__init__.py mcp_layer/mcp_client.py ./mcp_layer/
+
+EXPOSE 8001
+
+CMD ["uvicorn", "backend_api:app", "--host", "0.0.0.0", "--port", "8001"]

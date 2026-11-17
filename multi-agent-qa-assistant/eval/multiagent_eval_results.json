@@ -1,0 +1,54 @@
+[
+  {
+    "user_input":"Which genre has the most tracks?",
+    "retrieved_contexts":[
+      "{\"sql\": \"SELECT g.name\\nFROM genre g\\nJOIN track t ON g.genre_id = t.genre_id\\nGROUP BY g.genre_id, g.name\\nORDER BY COUNT(*) DESC\\nLIMIT 1;\", \"columns\": [\"name\"], \"rows\": [[\"Rock\"]], \"row_count\": 1, \"note\": \"\"}"
+    ],
+    "response":"The genre with the most tracks is **Rock**.\n\nQuery used: `SELECT g.name\nFROM genre g\nJOIN track t ON g.genre_id = t.genre_id\nGROUP BY g.genre_id, g.name\nORDER BY COUNT(*) DESC\nLIMIT 1;`",
+    "reference":"Rock has the most tracks, with 1,297 tracks.",
+    "faithfulness":1.0,
+    "answer_relevancy":1.0,
+    "answer_correctness":0.5407905879
+  },
+  {
+    "user_input":"How many customers do we have from Germany?",
+    "retrieved_contexts":[
+      "{\"sql\": \"SELECT COUNT(*) AS customer_count FROM customer WHERE country = 'Germany' LIMIT 100\", \"columns\": [\"customer_count\"], \"rows\": [[4]], \"row_count\": 1, \"note\": \"\"}"
+    ],
+    "response":"We have\u202f4\u202fcustomers from Germany.\n\nQuery used: `SELECT COUNT(*) AS customer_count\nFROM customer\nWHERE country = 'Germany';`",
+    "reference":"There are 4 customers from Germany.",
+    "faithfulness":1.0,
+    "answer_relevancy":1.0,
+    "answer_correctness":0.6324076068
+  },
+  {
+    "user_input":"What was the response rate for Iberdomide in the lupus trial?",
+    "retrieved_contexts":[
+      "context of lupus treatment. No dose-dependent effects\nof iberdomide were observed on anti-dsDNA antibody\nlevels at 12 weeks; however, a subsequent study showed a\ndose-dependent decrease in these antibody levels starting\nafter 16 weeks of treatment in patients with baseline levels\n>81U\/mL.\u201d!",
+      "METHODS\nTrial design\nCC-220-SLE-001 (NCT02185040) was a multicentre phase\n2 study consisting of two parts. The 12-week, double-blind,\nplacebo-controlled, dose-escalation phase randomised\npatients 4:1 (via interactive voice response system) to\noral iberdomide at one of four dose levels (0.3mg every\nother day (QOD), 0.3mg QD, 0.6mg and 0.3mg QD\non alternating days, or 0.6mg QD), or placebo. Dose\ninterruptions of up to 14 days were allowed for patients",
+      "In the dose-escalation phase, a trend toward improve-\nment from baseline in CLASI score through week 12 was\nobserved in the iberdomide groups, with minimal changes\nobserved in the placebo group (figure 1B). At day 85, the\nmean (SD; percentage change from baseline) change from\nbaseline in CLASI scores was +0.4 (1.8; +9.5%) in the placebo\ngroup and ~7.8 (10.2; -35.3%), 5.0 (9.6; -63.4%), -4.3 (6.3;\n\n6 Furie RA, et al. Lupus Science & Medicine 2022;9:e000581 . doi:10.1136\/lupus-2021-000581",
+      "During the dose-escalation phase, one patient each\nreceiving iberdomide 0.6\/0.3 mg on alternating days and\niberdomide 0.6 mg QD group had severe pneumonia, and\none patient in the latter group had severe neutropenia.\n\nFurie RA, et al. Lupus Science & Medicine 2022;9:e000581. doi:10.1136\/lupus-2021-000581 3",
+      "clinical activity with iberdomide was observed for multiple\nendpoints. In the placebo-controlled dose-escalation phase,\nmean hybrid SELENA-SLEDAI scores showed a trend toward\nimprovement in all groups, including placebo (figure 1A).\nAt day 85, 22%-50% of patients in the iberdomide groups\nachieved a 24-point reduction from baseline in hybrid\nSELENA-SLEDAI scores\u2019\u201d compared with 13% in the\nplacebo group. Improvements were greatest in the iberdo-"
+    ],
+    "response":"The dose\u2011escalation phase of the trial reported that **between\u202f22\u202f% and\u202f50\u202f% of patients receiving iberdomide achieved a \u2265\u202f24\u2011point reduction in hybrid SELENA\u2011SLEDAI scores**, compared with 13\u202f% of patients receiving placebo\u30105\u3011.  \n\nThus, the observed response rate for iberdomide in this lupus study varied by dose group, ranging from roughly one\u2011fifth to one\u2011half of treated participants.\n\nSources: lupus-2021-000581 p.9, lupus-2021-000581 p.2, lupus-2021-000581 p.6, lupus-2021-000581 p.3",
+    "reference":"Between 22% and 50% of patients receiving iberdomide achieved a \u226524-point reduction in hybrid SELENA-SLEDAI scores, compared with 13% of patients receiving placebo.",
+    "faithfulness":1.0,
+    "answer_relevancy":0.6460626973,
+    "answer_correctness":0.8505527581
+  },
+  {
+    "user_input":"What did the pneumonia study find about treatment outcomes?",
+    "retrieved_contexts":[
+      "90 A.G. Mathioudakis et al. \/ Journal of Clinical Epidemiology 164 (2023) 88 95\n\nWhat is new?\n\nKey Findings\n\ne This systematic review assessed the outcomes and\nmeasurement instruments tested in 280 ongoing or\ncompleted RCTs of pneumonia management.\n\nThe most frequently reported outcomes were treat-\nment success (60.7 ), mortality (56.4 ) and\nadverse events (41.1).",
+      "Conclusion: This review reveals significant variation in outcomes and measurement instruments reported in clinical trials of pneumonia\nmanagement. Outcomes that are important to patients and health professionals are often omitted. Our findings support the need for a",
+      "similar outcomes to studies looking at VAP, perhaps sug-\ngesting the need for two COSs, focusing on the treatment\nsetting, rather than the classification of pneumonia.\nDespite being the most frequently assessed outcome\nacross the included RCTs, there are no established and vali-\ndated tools for assessing treatment success or failure in\npneumonia or other acute respiratory conditions [26]. This\noutcome is defined as an overall assessment of whether",
+      "or completed RCTs evaluating interventions for pneumonia\nmanagement. There was significant variability in the re-\nported outcomes. Outcomes that are important to patients,\nhealth professionals, and policy makers were often omitted.\nOne in three trials did not report on safety, while four in ten\ndid not assess mortality or the overall outcome of the infec-\ntion (treatment success). With the exception of the afore-\nmentioned three outcomes, all other identified outcomes",
+      "pneumonia was treated successfully or not. Broadly, there\nare three different groups of instruments evaluating this\noutcome, but they are defined differently across various\nRCTs, leading to significant inconsistency and poor compa-\nrability. Descriptive instruments define treatment success or\nfailure based on qualitative or semi-quantitative descrip-\ntions of the patients\u2019 clinical status with regards to the\npneumonia, as judged by the responsible health-care pro-"
+    ],
+    "response":"The systematic review of pneumonia\u2011management trials reported that **treatment success was the single most common outcome, appearing in about 60\u202f% of the 280 randomized controlled trials examined**\u30101\u3011.  However, the review also highlighted several problems with how this outcome is handled:\n\n* **Large variability and gaps in outcome reporting** \u2013 many trials omitted outcomes that matter to patients, clinicians, and policy makers, and a substantial proportion failed to report safety, mortality, or the overall \u201ctreatment success\u201d of the infection\u30102\u3011\u30104\u3011.  \n* **No standard, validated instrument for measuring treatment success** \u2013 despite its frequent use, there is currently no agreed\u2011upon tool to define or assess treatment success or failure in pneumonia or other acute respiratory conditions\u30103\u3011.  \n* **Inconsistent definitions across studies** \u2013 the instruments used to judge treatment success differ widely (qualitative, semi\u2011quantitative descriptions, etc.), leading to poor comparability between trials\u30105\u3011.\n\nIn short, the pneumonia study found that while treatment success is the most frequently reported outcome, the lack of validated, consistent measurement tools and the omission of other key outcomes limit the usefulness and comparability of the findings.\n\nSources: pneumonia-clinical-studies p.3, pneumonia-clinical-studies p.1, pneumonia-clinical-studies p.6, pneumonia-clinical-studies p.5",
+    "reference":"Treatment success was the most commonly reported outcome, appearing in about 60% of the 280 randomized controlled trials reviewed, but there is no standard validated instrument for measuring it and outcome reporting varies widely across trials.",
+    "faithfulness":null,
+    "answer_relevancy":0.8369054716,
+    "answer_correctness":0.5884382822
+  }
+]

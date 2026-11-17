@@ -1,0 +1,9 @@
+# Client ONLY (app.py) -- the Streamlit UI. Stays local / undockerized on
+# purpose. All it does is send HTTP requests to the backend (see
+# backend_api.py) and render the response, so it needs none of
+# langgraph/langchain/mcp/chromadb -- those all moved to
+# requirements/backend.txt when the graph stopped running in-process here.
+
+streamlit==1.62.0
+requests==2.32.5
+python-dotenv==1.2.3

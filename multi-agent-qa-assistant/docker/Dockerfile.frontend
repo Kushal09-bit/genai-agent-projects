@@ -1,0 +1,16 @@
+# Frontend ONLY -- the Streamlit chat UI (app.py). Contains no agent
+# logic, no MCP code, no LLM/API keys: its only job is rendering the
+# chat UI and calling the backend over HTTP. See requirements/client.txt
+# for its deliberately tiny dependency list.
+FROM python:3.13-slim
+
+WORKDIR /app
+
+COPY requirements/client.txt .
+RUN pip install --no-cache-dir -r client.txt
+
+COPY app.py .
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0", "--server.port=8501", "--server.headless=true"]
