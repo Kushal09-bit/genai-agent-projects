@@ -1,0 +1,66 @@
+{
+  "aggregate_scores": {
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.7513887815081309,
+    "llm_context_precision_without_reference": 0.7259047618572438
+  },
+  "per_sample_scores": [
+    {
+      "question": "What type of IVR was the 90\u2011day user randomized to?",
+      "answer": "The 90\u2011day user was randomized to the TFV/LNG intravaginal ring (IVR).\n\nSources: Qualitative findings of the Kisumu p.9",
+      "guardrail_rejection": false,
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.790096597929858,
+      "llm_context_precision_without_reference": 0.629523809511219
+    },
+    {
+      "question": "From what percentage to what percentage did the screening of ART enrollees for TB increase after the intervention?",
+      "answer": "The screening of ART enrollees for TB increased from 30\u202f% to 100\u202f% after the intervention.\n\nSources: 12916_2019_Article_1489 p.11",
+      "guardrail_rejection": false,
+      "faithfulness": 1.0,
+      "answer_relevancy": 0.9477436331774332,
+      "llm_context_precision_without_reference": 0.9999999999
+    },
+    {
+      "question": "What did all authors do with the final manuscript?",
+      "answer": "Blocked: classified as unrelated to the biomedical research corpus",
+      "guardrail_rejection": true,
+      "faithfulness": 0.0,
+      "answer_relevancy": 0.046879998748925865,
+      "llm_context_precision_without_reference": 0.0
+    },
+    {
+      "question": "In which journal was the 2020 article by Auld et al. published?",
+      "answer": "The 2020 article by Auld et\u202fal. was published in the journal **BMC Medicine**.\n\nSources: 12916_2019_Article_1489 p.4",
+      "guardrail_rejection": false,
+      "faithfulness": 0.5,
+      "answer_relevancy": 1.0,
+      "llm_context_precision_without_reference": 0.999999999975
+    },
+    {
+      "question": "Which company receives royalties from Dr. Paulo\u202fRS\u202fSanches\u2019s patent?",
+      "answer": "Quark Medical receives royalties from Dr. Paulo\u202fRS\u202fSanches\u2019s patent.\n\nSources: JPR_A_384373 187..203 - jpr-16-187 p.15",
+      "guardrail_rejection": false,
+      "faithfulness": 0.5,
+      "answer_relevancy": 0.972223677684438,
+      "llm_context_precision_without_reference": 0.9999999999
+    }
+  ],
+  "n_scored": 5,
+  "n_skipped": 3,
+  "n_guardrail_rejections": 1,
+  "skipped": [
+    {
+      "question": "What numeric sequence follows \"GZ0Z\" in the excerpt?",
+      "reason": "no retrieved context"
+    },
+    {
+      "question": "How many patients were excluded because they lived too far from Stanford University?",
+      "reason": "no retrieved context"
+    },
+    {
+      "question": "What statistical power (percentage) did the study have to reach significance?",
+      "reason": "no retrieved context"
+    }
+  ]
+}

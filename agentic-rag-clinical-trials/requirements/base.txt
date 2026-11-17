@@ -1,0 +1,40 @@
+# core agent stack
+langchain>=1.4
+langchain-groq
+langgraph
+langchain-mcp-adapters
+mcp<2  # 2.x renamed FastMCP -> MCPServer and changed other APIs, this codebase is built on 1.x
+
+# day6: gemini as an alternate model provider - optional at runtime same as
+# langfuse below, agent.py's _build_llm() only imports ChatGoogleGenerativeAI
+# if GOOGLE_API_KEY is actually set in .env. groq's free tier TPD cap is
+# org-wide, not per-key, so a new groq key doesn't buy a fresh quota once
+# it's tapped out - gemini's a completely separate bucket - see config.py
+langchain-google-genai
+
+# day6: ollama cloud as a 3rd alternate model provider, same optional-at-
+# runtime deal - only imported if OLLAMA_API_KEY is set. see config.py
+langchain-ollama
+
+# retrieval (also used by ingestion, see requirements/day2.txt)
+chromadb
+sentence-transformers
+rank-bm25
+numpy
+
+# structured source (day4)
+psycopg2-binary
+
+python-dotenv
+pydantic
+
+# day6: HTTP API + streamlit frontend
+fastapi
+uvicorn
+requests
+streamlit
+
+# day6: langfuse tracing - optional at runtime (agent.py only imports it if
+# LANGFUSE_SECRET_KEY/PUBLIC_KEY are actually set in .env), but installed
+# by default same as everything else here
+langfuse>=3

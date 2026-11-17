@@ -1,0 +1,16 @@
+# slim requirements for the mcp-server docker image only (docker/Dockerfile.mcp_server) -
+# retrieval + AACT, nothing agent/API/frontend-side. requirements/base.txt (everything,
+# for local dev / the REPL) is still the one to use outside docker.
+# langchain + langchain-groq ARE needed here despite the "nothing agent-side"
+# comment above - extract_entities() calls init_chat_model(AGENT_MODEL)
+# directly in this file (mcp_server.py), it's not routed through agent.py.
+mcp<2  # 2.x renamed FastMCP -> MCPServer and changed other APIs, this codebase is built on 1.x
+langchain>=1.4
+langchain-groq
+chromadb
+sentence-transformers
+rank-bm25
+numpy
+psycopg2-binary
+python-dotenv
+pydantic

@@ -1,0 +1,22 @@
+# the "backend" container - FastAPI (src/api.py) wrapping the agent, which
+# reaches every tool through src/mcp_client.py over the network (MCP_TRANSPORT
+# is set to http via docker-compose, pointing at the mcp-server container).
+# no chroma_db/docs here - this container never touches retrieval directly,
+# only through MCP.
+#
+# lives in docker/, built with the repo root as context (see
+# docker/docker-compose.yml) - every COPY path below is relative to the
+# repo root, not to this file.
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements/backend.txt .
+RUN pip install --no-cache-dir -r backend.txt
+
+COPY src/ src/
+COPY skills/ skills/
+
+EXPOSE 8000
+
+CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000"]

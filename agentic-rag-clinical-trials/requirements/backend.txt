@@ -1,0 +1,26 @@
+# slim requirements for the backend docker image only (docker/Dockerfile.backend) -
+# the agent + FastAPI. no chromadb/rank-bm25/psycopg2 here - this container
+# only ever reaches retrieval/AACT through the mcp-server container over MCP,
+# never imports them directly. sentence-transformers IS needed here though -
+# long_term_memory.py embeds facts for the semantic store in this process.
+langchain>=1.4
+langchain-groq
+langgraph
+langchain-mcp-adapters
+mcp<2  # 2.x renamed FastMCP -> MCPServer and changed other APIs, this codebase is built on 1.x
+sentence-transformers
+fastapi
+uvicorn
+python-dotenv
+pydantic
+
+# day6: langfuse tracing - optional at runtime, see requirements/base.txt
+langfuse>=3
+
+# day6: gemini as an alternate model provider - optional at runtime, see
+# requirements/base.txt
+langchain-google-genai
+
+# day6: ollama cloud as a 3rd alternate model provider - optional at
+# runtime, see requirements/base.txt
+langchain-ollama

@@ -1,0 +1,71 @@
+# 3 services: mcp-server (tools), backend (agent + FastAPI), frontend
+# (streamlit). Run from this docker/ folder: docker compose up --build
+# needs chroma_db/ already built locally first - see src/ingestion_pipeline.py -
+# it's mounted into mcp-server, not baked into its image.
+#
+# this file lives in docker/, one level below the repo root - every
+# relative path below (build context, volumes, env_file) is written
+# relative to THIS file's location, not wherever you run `docker compose`
+# from, so it's "..": the repo root, throughout.
+#
+# healthchecks + depends_on conditions below matter here, not just for show -
+# without them backend races to connect to mcp-server before it's actually
+# listening yet (same for frontend -> backend), which looked like a crash on
+# first run. now each service actually waits for the one before it to be
+# ready, not just "started".
+#
+# chroma_db mount is NOT read-only, even though this container only ever
+# reads from it - chromadb.PersistentClient (hybrid_retriever.py) writes to
+# its own sqlite file even on plain queries (WAL/bookkeeping), so :ro here
+# throws "attempt to write a readonly database" (sqlite error code 8) the
+# first time retrieve_chunks actually gets called - found this the hard way,
+# every prior test that only chatted with the agent never triggered retrieval
+# so this never showed up until now.
+services:
+  mcp-server:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.mcp_server
+    volumes:
+      - ../chroma_db:/app/chroma_db
+    env_file: ../.env
+    expose:
+      - "8765"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket; socket.create_connection(('localhost', 8765), timeout=3).close()"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    depends_on:
+      mcp-server:
+        condition: service_healthy
+    environment:
+      - MCP_TRANSPORT=http
+      - MCP_SERVER_URL=http://mcp-server:8765/mcp
+    env_file: ../.env
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - BACKEND_URL=http://backend:8000
+    ports:
+      - "8501:8501"

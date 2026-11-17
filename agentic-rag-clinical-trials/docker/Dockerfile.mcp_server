@@ -1,0 +1,21 @@
+# the "tools" container - retrieval + all six AACT tools, served over MCP.
+# chroma_db/ is mounted as a volume at runtime (docker-compose), not baked
+# in here - it's built separately by src/ingestion_pipeline.py and you
+# don't want to rebuild the image every time you re-ingest docs.
+#
+# lives in docker/, built with the repo root as context (see
+# docker/docker-compose.yml) - every COPY path below is relative to the
+# repo root, not to this file.
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements/mcp_server.txt .
+RUN pip install --no-cache-dir -r mcp_server.txt
+
+COPY src/ src/
+
+ENV MCP_TRANSPORT=http
+EXPOSE 8765
+
+CMD ["python", "-m", "src.mcp_server"]

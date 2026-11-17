@@ -1,0 +1,19 @@
+# the streamlit frontend - just talks HTTP to the backend container
+# (BACKEND_URL, set via docker-compose), never imports the agent or
+# touches a tool directly.
+#
+# lives in docker/, built with the repo root as context (see
+# docker/docker-compose.yml) - every COPY path below is relative to the
+# repo root, not to this file.
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements/frontend.txt .
+RUN pip install --no-cache-dir -r frontend.txt
+
+COPY app.py .
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.address=0.0.0.0", "--server.port=8501"]

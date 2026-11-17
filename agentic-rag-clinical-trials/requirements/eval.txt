@@ -1,0 +1,22 @@
+# extra deps just for eval/ragas_eval.py - install requirements/base.txt
+# first, this is on top of it, not instead of it. this script builds and
+# runs the real agent (same as the repl), so it needs everything base.txt
+# already has, plus these just for the scoring/tracing part.
+
+ragas
+gitpython  # ragas imports this at module load (ragas.experiment) - not
+# listed as its own hard pypi dependency in every ragas release, so it's
+# spelled out here instead of silently relying on it already being present.
+
+# pin below 0.4.2 on purpose - 0.4.2 dropped the langchain_community.chat_
+# models.vertexai submodule, but ragas (checked both 0.3.9 and 0.4.3)
+# still imports it unconditionally at module load, so `import ragas` hard-
+# crashes with a ModuleNotFoundError on 0.4.2+ regardless of whether you
+# ever touch vertexai. known upstream bug, several open issues on ragas's
+# repo about it as of writing - this pin is the documented workaround
+# until ragas ships a fix.
+langchain-community<0.4.2
+
+langfuse>=3  # v2's callback handler lived at a different import path
+# (langfuse.callback.CallbackHandler) - pinning >=3 for the current
+# langfuse.langchain.CallbackHandler api this project's built against.

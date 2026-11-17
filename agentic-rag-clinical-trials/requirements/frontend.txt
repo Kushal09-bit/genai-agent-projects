@@ -1,0 +1,4 @@
+# slim requirements for the frontend docker image only (docker/Dockerfile.frontend) -
+# streamlit just talks HTTP to the backend, nothing else.
+streamlit
+requests

@@ -1,0 +1,9 @@
+# extra deps just for src/ingestion_pipeline.py - install requirements/base.txt
+# first, this is on top of it, not instead of it.
+
+pymupdf
+
+# OCR fallback for scanned pages with no text layer - optional, ingestion
+# just skips OCR if these aren't installed
+pdf2image
+pytesseract

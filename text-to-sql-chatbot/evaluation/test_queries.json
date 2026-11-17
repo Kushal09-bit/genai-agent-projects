@@ -1,0 +1,10 @@
+[
+  {
+    "question": "Which artist has the most albums?",
+    "ground_truth": "Iron Maiden has the most albums, with 21."
+  },
+  {
+    "question": "What is the total revenue from all invoices?",
+    "ground_truth": "The total revenue from all invoices is $2,328.60."
+  }
+]
